@@ -1,0 +1,20 @@
+Configuration:
+  Properties:
+    Property:
+      - name: LOG_PATTERN
+        value: "%blue{%d{yyyy-MM-dd HH:mm:ss.SSS}} %highlight{%5p} [%15.15t] %cyan{%-40.40c{1.}}: %highlight{%m%n%ex}{FATAL=red, ERROR=red WARN=yellow, INFO=Normal, DEBUG=Normal, TRACE=Normal}"
+  Appenders:
+    Console:
+      - name: ConsoleAppender
+        target: SYSTEM_OUT
+        follow: true
+        PatternLayout:
+          pattern: ${LOG_PATTERN}
+          disableAnsi: false
+          noConsoleNoAnsi: false
+  Loggers:
+    Root:
+      level: info
+      additivity: false
+      AppenderRef:
+        - ref: ConsoleAppender

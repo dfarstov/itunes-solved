@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_playlists
+      author: vast
+      tagDatabase: Version 1
+      changes:
+        - createTable:
+            tableName: playlists
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: id_author
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_playlists_author
+                    references: users(id)
+              - column:
+                  name: created_at
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: bigint
+                  constraints:
+                    nullable: false

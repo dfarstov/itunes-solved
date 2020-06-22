@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_songs_playlists
+      author: vast
+      tagDatabase: Version 1
+      changes:
+        - createTable:
+            tableName: songs_playlists
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: id_song
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_song_id
+                    references: songs(id)
+              - column:
+                  name: id_playlist
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_playlist_id
+                    references: playlists(id)

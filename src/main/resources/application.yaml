@@ -1,0 +1,25 @@
+spring:
+  mvc:
+    throw-exception-if-no-handler-found: true
+  datasource:
+    url: jdbc:h2:file:./out/itunes.db
+    username: dev
+    password: dev
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:db/changelog.yaml
+  application:
+    name: itunes
+  jmx:
+    enabled: false
+
+logging:
+  level:
+    org.springframework.web.servlet.PageNotFound: error
+    org.springframework.web.socket.config.WebSocketMessageBrokerStats: warn
+    liquibase.executor.jvm.JdbcExecutor: warn
+    springfox: warn
+    root: info
