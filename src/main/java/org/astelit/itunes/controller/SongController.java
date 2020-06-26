@@ -36,24 +36,4 @@ public class SongController {
     public Page<SongResponse> search(SongSearchRequest request) {
         return songService.search(request);
     }
-
-    @GetMapping("/name")
-    public Page<SongResponse> byName(@RequestParam String name) {
-        return songService.byName(name);
-    }
-
-    @GetMapping("/album")
-    public Page<SongResponse> byAlbum(@RequestParam String album) {
-        return songService.byAlbum(album);
-    }
-
-    @GetMapping("/artist")
-    public Page<SongResponse> byArtist(@RequestParam String artist) {
-        return songService.byArtist(artist);
-    }
-
-    @GetMapping("/genre")
-    public Page<SongResponse> byGenre(@RequestParam String genre) {
-        return songService.byGenre(genre);
-    }
 }

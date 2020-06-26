@@ -3,6 +3,8 @@ package org.astelit.itunes.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +21,7 @@ import java.util.Set;
 public class Artist extends BaseEntity {
     private String name;
 
-    @OneToMany(mappedBy = "artist", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "artist")
+    @Fetch(FetchMode.SELECT)
     private Set<Album> albums = new HashSet<>();
 }

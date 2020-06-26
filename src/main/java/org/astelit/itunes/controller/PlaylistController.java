@@ -8,6 +8,9 @@ import org.astelit.itunes.dto.artist.ArtistUpdateRequest;
 import org.astelit.itunes.dto.playlist.PlaylistAddSongRequest;
 import org.astelit.itunes.dto.playlist.PlaylistCreateRequest;
 import org.astelit.itunes.dto.playlist.PlaylistResponse;
+import org.astelit.itunes.dto.playlist.PlaylistSearchRequest;
+import org.astelit.itunes.dto.song.SongResponse;
+import org.astelit.itunes.dto.song.SongSearchRequest;
 import org.astelit.itunes.entity.Playlist;
 import org.astelit.itunes.service.PlaylistService;
 import org.springframework.data.domain.Page;
@@ -34,12 +37,8 @@ public class PlaylistController {
     @GetMapping("{id}")
     public PlaylistResponse view(@PathVariable Long id) { return playlistService.view(id); }
 
-    @GetMapping("/byArtist")
-    public Page<PlaylistResponse> getByArtist(@RequestParam String artist) { return playlistService.byArtist(artist); }
-
-    @GetMapping("/byAlbum")
-    public Page<PlaylistResponse> getByAlbum(@RequestParam String album) { return playlistService.byAlbum(album); }
-
-    @GetMapping("/bySong")
-    public Page<PlaylistResponse> getBySong(@RequestParam String song) { return playlistService.bySong(song); }
+    @GetMapping
+    public Page<PlaylistResponse> search(PlaylistSearchRequest request) {
+        return playlistService.search(request);
+    }
 }

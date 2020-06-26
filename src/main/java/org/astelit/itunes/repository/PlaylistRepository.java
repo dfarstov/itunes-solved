@@ -24,43 +24,19 @@ public interface  PlaylistRepository extends JpaRepository<Playlist, Long>, JpaS
             if (request.getAuthor() != null)
                 predicates.add(cb.equal(root.get("author").get("id"), request.getAuthor()));
 
-            predicates.add(cb.like(cb.upper(root.get("name")), request.getLikeString()));
+            if (request.getArtist() != null)
+                predicates.add(cb.equal(root.get("songs").get("album").get("artist"), request.getArtist()));
+
+            if (request.getAlbum() != null)
+                predicates.add(cb.equal(root.get("songs").get("album"), request.getAlbum()));
+
+            if (request.getSong() != null)
+                predicates.add(cb.equal(root.get("songs").get("name"), request.getSong()));
+
+
             query.orderBy(cb.desc(root.get("updatedAt")));
 
             return cb.and(predicates.toArray(new Predicate[0]));
-        }, request.pageable());
-    }
-
-    //ARTIST
-    default Page<Playlist> findByArtist(PlaylistSearchRequest request) {
-        return findAll((Specification<Playlist>) (root, query, cb) -> {
-            CriteriaQuery<Playlist> cq = cb.createQuery(Playlist.class);
-
-            Predicate artistNamePredicate = cb.equal(root.get("songs").get("album").get("artist"), request.getArtist());
-            cq.where(artistNamePredicate);
-
-            return cb.and(artistNamePredicate);
-        }, request.pageable());
-    }
-
-    //ALBUM
-    default Page<Playlist> findByAlbum(PlaylistSearchRequest request) {
-        return findAll((Specification<Playlist>) (root, query, cb) -> {
-            CriteriaQuery<Playlist> cq = cb.createQuery(Playlist.class);
-
-            Predicate artistNamePredicate = cb.equal(root.get("songs").get("album"), request.getAlbum());
-            cq.where(artistNamePredicate);
-
-            return cb.and(artistNamePredicate);
-        }, request.pageable());
-    }
-
-    //SONG
-    default Page<Playlist> findBySong(PlaylistSearchRequest request) {
-        return findAll((Specification<Playlist>) (root, query, cb) -> {
-            Predicate predicate = cb.equal(root.get("songs").get("name"), request.getSong());
-
-            return cb.and(predicate);
         }, request.pageable());
     }
 }

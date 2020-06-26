@@ -3,6 +3,8 @@ package org.astelit.itunes.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.astelit.itunes.contstraint.PlaylistName;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,7 +24,8 @@ public class Playlist extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private User author;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
     @JoinTable(
             name = "songs_playlists",
             joinColumns = { @JoinColumn(name = "id_playlist") },

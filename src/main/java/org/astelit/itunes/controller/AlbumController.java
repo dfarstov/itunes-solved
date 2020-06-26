@@ -36,13 +36,4 @@ public class AlbumController {
     public AlbumResponse view(@PathVariable long id) {
         return albumService.view(id);
     }
-
-    @GetMapping("/byName")
-    public Page<AlbumResponse> getByName(@RequestParam String name) { return albumService.byName(name); }
-
-    @GetMapping("/byGenre")
-    public Page<AlbumResponse> getByGenre(@RequestParam String genre) { return albumService.byGenre(genre); }
-
-    @GetMapping("/byArtist")
-    public Page<AlbumResponse> getByArtist(@RequestParam Long artist) { return albumService.byArtist(artist); }
 }

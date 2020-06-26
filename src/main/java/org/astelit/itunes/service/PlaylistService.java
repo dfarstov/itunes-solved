@@ -65,24 +65,4 @@ public class PlaylistService {
     public Page<PlaylistResponse> search(PlaylistSearchRequest request) {
         return repository.search(request).map(PlaylistResponse::new);
     }
-
-    //CUSTOM
-    public Page<PlaylistResponse> byArtist(String artist) {
-        PlaylistSearchRequest request = new PlaylistSearchRequest();
-        request.setArtist(artist);
-        return repository.findByArtist(request).map(PlaylistResponse::new);
-    }
-
-    public Page<PlaylistResponse> byAlbum(String album) {
-        PlaylistSearchRequest request = new PlaylistSearchRequest();
-        request.setAlbum(album);
-        return repository.findByAlbum(request).map(PlaylistResponse::new);
-    }
-
-    public Page<PlaylistResponse> bySong(String song) {
-        PlaylistSearchRequest request = new PlaylistSearchRequest();
-        request.setSong(song);
-        return repository.findBySong(request).map(PlaylistResponse::new);
-    }
-
 }

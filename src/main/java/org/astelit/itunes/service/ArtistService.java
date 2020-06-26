@@ -49,21 +49,7 @@ public class ArtistService {
         return new ArtistResponse(artist);
     }
 
-    public Page<ArtistResponse> search(SearchRequest request) {
-        return repository.findByNameIsLikeOrderByNameAsc(request.getQuery(), request.pageable())
-                .map(ArtistResponse::new);
-    }
-
-    //CUSTOM
-    public Page<ArtistResponse> byName(String name) {
-        ArtistSearchRequest request = new ArtistSearchRequest();
-        request.setName(name);
-        return repository.findByName(request).map(ArtistResponse::new);
-    }
-
-    public Page<ArtistResponse> byGenre(String genre) {
-        ArtistSearchRequest request = new ArtistSearchRequest();
-        request.setGenre(genre);
-        return repository.findByGenre(request).map(ArtistResponse::new);
+    public Page<ArtistResponse> search(ArtistSearchRequest request) {
+        return repository.search(request).map(ArtistResponse::new);
     }
 }

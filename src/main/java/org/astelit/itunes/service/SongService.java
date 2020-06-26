@@ -53,29 +53,4 @@ public class SongService {
     public Page<SongResponse> search(SongSearchRequest request) {
         return repository.search(request).map(SongResponse::new);
     }
-
-    //CUSTOM
-    public Page<SongResponse> byName(String name) {
-        SongSearchRequest request = new SongSearchRequest();
-        request.setName(name);
-        return repository.findByName(request).map(SongResponse::new);
-    }
-
-    public Page<SongResponse> byAlbum(String album) {
-        SongSearchRequest request = new SongSearchRequest();
-        request.setAlbum(album);
-        return repository.findByAlbum(request).map(SongResponse::new);
-    }
-
-    public Page<SongResponse> byArtist(String artist) {
-        SongSearchRequest request = new SongSearchRequest();
-        request.setArtist(artist);
-        return repository.findByArtist(request).map(SongResponse::new);
-    }
-
-    public Page<SongResponse> byGenre(String genre) {
-        SongSearchRequest request = new SongSearchRequest();
-        request.setGenre(genre);
-        return repository.findByGenre(request).map(SongResponse::new);
-    }
 }

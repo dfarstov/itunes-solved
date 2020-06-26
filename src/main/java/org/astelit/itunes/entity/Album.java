@@ -3,6 +3,8 @@ package org.astelit.itunes.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.astelit.itunes.contstraint.AlbumName;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,9 +27,10 @@ public class Album extends BaseEntity {
 
     @NotNull
     @JoinColumn(name = "id_artist")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
+    @Fetch(FetchMode.SELECT)
     private Artist artist;
 
-    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "album")
     private Set<Song> songs = new HashSet<>();
 }

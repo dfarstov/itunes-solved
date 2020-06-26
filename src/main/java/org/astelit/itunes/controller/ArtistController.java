@@ -36,10 +36,4 @@ public class ArtistController {
     public Page<ArtistResponse> search(ArtistSearchRequest request) {
         return artistService.search(request);
     }
-
-    @GetMapping("/byArtistName")
-    public Page<ArtistResponse> getByName(@RequestParam String name) { return artistService.byName(name); }
-
-    @GetMapping("/byGenre")
-    public Page<ArtistResponse> getByGenre(@RequestParam String genre) { return artistService.byGenre(genre); }
 }

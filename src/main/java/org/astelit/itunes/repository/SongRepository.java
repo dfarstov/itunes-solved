@@ -20,61 +20,21 @@ public interface SongRepository extends JpaRepository<Song, Long>, JpaSpecificat
         return findAll((Specification<Song>) (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (request.getAlbum() != null)
-                predicates.add(cb.equal(root.get("album").get("id"), request.getAlbum()));
+            if (request.getName() != null)
+                predicates.add(cb.equal(root.get("name"), request.getName()));
 
-            predicates.add(cb.like(cb.upper(root.get("name")), request.getLikeString()));
+            if (request.getAlbum() != null)
+                predicates.add(cb.equal(root.get("album").get("name"), request.getAlbum()));
+
+            if (request.getArtist() != null)
+                predicates.add(cb.equal(root.get("album").get("artist").get("name"), request.getArtist()));
+
+            if (request.getGenre() != null)
+                predicates.add(cb.equal(root.get("album").get("genre"), request.getGenre()));
+
             query.orderBy(cb.desc(root.get("updatedAt")));
 
             return cb.and(predicates.toArray(new Predicate[0]));
-        }, request.pageable());
-    }
-
-    //NAME
-    default Page<Song> findByName(SongSearchRequest request) {
-        return findAll((Specification<Song>) (root, query, cb) -> {
-            CriteriaQuery<Song> cq = cb.createQuery(Song.class);
-
-            Predicate predicate = cb.equal(root.get("name"), request.getName());
-            cq.where(predicate);
-
-            return cb.and(predicate);
-        }, request.pageable());
-    }
-
-    //ALBUM
-    default Page<Song> findByAlbum(SongSearchRequest request) {
-        return findAll((Specification<Song>) (root, query, cb) -> {
-            CriteriaQuery<Song> cq = cb.createQuery(Song.class);
-
-            Predicate predicate = cb.equal(root.get("album").get("name"), request.getAlbum());
-            cq.where(predicate);
-
-            return cb.and(predicate);
-        }, request.pageable());
-    }
-
-    //ARTIST
-    default Page<Song> findByArtist(SongSearchRequest request) {
-        return findAll((Specification<Song>) (root, query, cb) -> {
-            CriteriaQuery<Song> cq = cb.createQuery(Song.class);
-
-            Predicate predicate = cb.equal(root.get("album").get("artist").get("name"), request.getArtist());
-            cq.where(predicate);
-
-            return cb.and(predicate);
-        }, request.pageable());
-    }
-
-    //GENRE
-    default Page<Song> findByGenre(SongSearchRequest request) {
-        return findAll((Specification<Song>) (root, query, cb) -> {
-            CriteriaQuery<Song> cq = cb.createQuery(Song.class);
-
-            Predicate predicate = cb.equal(root.get("album").get("genre"), request.getGenre());
-            cq.where(predicate);
-
-            return cb.and(predicate);
         }, request.pageable());
     }
 }
